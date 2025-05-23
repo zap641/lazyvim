@@ -3,7 +3,7 @@ return {
     "echasnovski/mini.files",
     keys = {
       {
-        "<leader><space>",
+        "<leader><space>", -- Quick mini-files keymap
         function()
           require("mini.files").open(LazyVim.root(), true)
         end,
@@ -14,7 +14,7 @@ return {
   {
     "snacks.nvim",
     opts = function(_, opts)
-      table.insert(
+      table.insert( -- Add select session to dashboard
         opts.dashboard.preset.keys,
         7,
         { icon = "", key = "S", desc = "Select Session", action = require("persistence").select }
@@ -25,8 +25,16 @@ return {
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
-    keys = { -- load the plugin only when using it's keybinding:
+    keys = { -- Load the plugin only when using it's keybinding:
       { "<leader>U", "<cmd>lua require('undotree').toggle()<cr>", desc = "Undo Tree" },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      scroll = {
+        enabled = false, -- Disable scrolling animations
+      },
     },
   },
 }

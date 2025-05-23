@@ -1,5 +1,4 @@
 return {
-  -- Change explorer <leader>e keymap to minifiles
   {
     "echasnovski/mini.files",
     keys = {

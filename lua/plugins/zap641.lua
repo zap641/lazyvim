@@ -9,6 +9,8 @@ return {
         end,
         desc = "Open mini.files (root)",
         remap = true, -- Requires this line for it not to get overwritten
+        -- this keymap doesnt always remap the existing keymap -- need to fix.
+        -- also need to configure the change directory in mini.files from gc to something else as it conflicts with gc commenting
       },
     },
   },

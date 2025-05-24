@@ -8,6 +8,7 @@ return {
           require("mini.files").open(LazyVim.root(), true)
         end,
         desc = "Open mini.files (root)",
+        remap = true, -- Requires this line for it not to get overwritten
       },
     },
   },

@@ -8,11 +8,34 @@ return {
           require("mini.files").open(LazyVim.root(), true)
         end,
         desc = "Open mini.files (root)",
-        remap = true, -- Requires this line for it not to get overwritten
         -- this keymap doesnt always remap the existing keymap -- need to fix.
-        -- also need to configure the change directory in mini.files from gc to something else as it conflicts with gc commenting
+        -- here is where the original config keymap is called: https://www.lazyvim.org/extras/editor/snacks_picker
       },
     },
+    -- used to remap gc to g/ to change directory in mini.files
+    config = function(_, opts)
+      require("mini.files").setup(opts)
+
+      local files_set_cwd = function()
+        local cur_entry_path = MiniFiles.get_fs_entry().path
+        local cur_directory = vim.fs.dirname(cur_entry_path)
+        if cur_directory ~= nil then
+          vim.fn.chdir(cur_directory)
+        end
+      end
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesBufferCreate",
+        callback = function(args)
+          vim.keymap.set(
+            "n",
+            opts.mappings and opts.mappings.change_cwd or "g/",
+            files_set_cwd,
+            { buffer = args.data.buf_id, desc = "Set cwd" }
+          )
+        end,
+      })
+    end,
   },
   {
     "snacks.nvim",

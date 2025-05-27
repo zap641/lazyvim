@@ -1,18 +1,22 @@
 return {
   {
+    "folke/snacks.nvim",
+    keys = {
+      { "<leader><space>", false }, -- need to disable keymap to avoid conflict-loading with mini-files
+    },
+  },
+  {
     "echasnovski/mini.files",
     keys = {
       {
-        "<leader><space>", -- Quick mini-files keymap
+        "<leader><space>",
         function()
           require("mini.files").open(LazyVim.root(), true)
         end,
         desc = "Open mini.files (root)",
-        -- this keymap doesnt always remap the existing keymap -- need to fix.
-        -- here is where the original config keymap is called: https://www.lazyvim.org/extras/editor/snacks_picker
       },
     },
-    -- used to remap gc to g/ to change directory in mini.files
+    -- the following used to remap gc to avoid conflicting keymap
     config = function(_, opts)
       require("mini.files").setup(opts)
 
@@ -39,8 +43,9 @@ return {
   },
   {
     "snacks.nvim",
+    -- Add 'select session' to dashboard
     opts = function(_, opts)
-      table.insert( -- Add select session to dashboard
+      table.insert(
         opts.dashboard.preset.keys,
         7,
         { icon = "", key = "S", desc = "Select Session", action = require("persistence").select }
@@ -51,7 +56,7 @@ return {
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
-    keys = { -- Load the plugin only when using it's keybinding:
+    keys = {
       { "<leader>U", "<cmd>lua require('undotree').toggle()<cr>", desc = "Undo Tree" },
     },
   },
